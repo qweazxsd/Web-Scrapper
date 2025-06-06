@@ -105,42 +105,41 @@ def send_email_notification(
 
 def main_loop():
     alerted_once = False
-    while True:
-        print(f"\n[INFO] Checking {URL_TO_CHECK} …")
-        val = fetch_value_with_selenium(URL_TO_CHECK)
-        if val is None:
-            print("[INFO] Could not get a valid numeric value. Retrying in a bit.")
-        else:
-            print(f"[INFO] Fetched value = {val}")
+    print(f"\n[INFO] Checking {URL_TO_CHECK} …")
+    val = fetch_value_with_selenium(URL_TO_CHECK)
+    if val is None:
+        print("[INFO] Could not get a valid numeric value. Retrying in a bit.")
+    else:
+        print(f"[INFO] Fetched value = {val}")
 
-            # Check if value > 0
-            if val >= 0 and not alerted_once:
-                subject = f"🔔 Alert: value = {val} > 0"
-                body    = f"The element '{CSS_SELECTOR}' at {URL_TO_CHECK} is now {val}, which is > 0."
+        # Check if value > 0
+        if val >= 0 and not alerted_once:
+            subject = f"🔔 Alert: value = {val} > 0"
+            body    = f"The element '{CSS_SELECTOR}' at {URL_TO_CHECK} is now {val}, which is > 0."
 
-                # Send email
-                email_sent = send_email_notification(
-                    SMTP_SERVER,
-                    SMTP_PORT,
-                    SMTP_USER,
-                    SMTP_PASS,
-                    SENDER_ADDR,
-                    RECIPIENT_ADDR,
-                    subject,
-                    body
-                )
-                if email_sent:
-                    print("[INFO] Email notification sent.")
-                else:
-                    print("[WARN] Email notification failed.")
+            # Send email
+            email_sent = send_email_notification(
+                SMTP_SERVER,
+                SMTP_PORT,
+                SMTP_USER,
+                SMTP_PASS,
+                SENDER_ADDR,
+                RECIPIENT_ADDR,
+                subject,
+                body
+            )
+            if email_sent:
+                print("[INFO] Email notification sent.")
+            else:
+                print("[WARN] Email notification failed.")
 
-                alerted_once = True  # so we don't spam multiple times in a row
+            alerted_once = True  # so we don't spam multiple times in a row
 
-            elif val <= 0:
-                # Reset so that if it goes back above 0 later, we alert again
-                if alerted_once:
-                    print("[INFO] Value ≤ 0 again. Resetting alert flag.")
-                alerted_once = False
+        elif val <= 0:
+            # Reset so that if it goes back above 0 later, we alert again
+            if alerted_once:
+                print("[INFO] Value ≤ 0 again. Resetting alert flag.")
+            alerted_once = False
 
 if __name__ == "__main__":
     main_loop()
