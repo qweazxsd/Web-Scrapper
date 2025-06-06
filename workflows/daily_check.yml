@@ -1,0 +1,41 @@
+name: Daily Webpage Check
+
+# Run once per day at 00:00 UTC (adjust the cron as needed)
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  check-element:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 lxml
+
+      - name: Run the check script
+        env:
+          # these should be configured as GitHub Secrets under Settings → Secrets
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER:   ${{ secrets.SMTP_USER }}
+          SMTP_PASS:   ${{ secrets.SMTP_PASS }}
+          SENDER_ADDR: ${{ secrets.SENDER_ADDR }}
+          RECIPIENT_ADDR: ${{ secrets.RECIPIENT_ADDR }}
+          TWILIO_SID:     ${{ secrets.TWILIO_SID }}
+          TWILIO_AUTH:    ${{ secrets.TWILIO_AUTH }}
+          TWILIO_FROM:    ${{ secrets.TWILIO_FROM }}
+          TWILIO_TO:      ${{ secrets.TWILIO_TO }}
+          URL_TO_CHECK:   "https://example.com/status"
+          CSS_SELECTOR:   "b.blue-label.col-md-1.count.ng-binding"
+        run: |
+          python3 check_script.py
