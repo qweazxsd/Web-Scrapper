@@ -89,11 +89,3 @@ The `daily_check.yml` workflow (located under `.github/workflows/`) automates ru
 3. Add `SMTP_PASS` with your Gmail app password as the value.
 
 Once set, the workflow will automatically pick up the secret and use it when running the script.
-
-## License
-
-This project is released under the [MIT License](LICENSE) (or modify as needed).
-
----
-
-*Feel free to customize this README further to suit your project needs.*  
