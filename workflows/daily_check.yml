@@ -24,18 +24,6 @@ jobs:
 
       - name: Run the check script
         env:
-          # these should be configured as GitHub Secrets under Settings → Secrets
-          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER:   ${{ secrets.SMTP_USER }}
-          SMTP_PASS:   ${{ secrets.SMTP_PASS }}
-          SENDER_ADDR: ${{ secrets.SENDER_ADDR }}
-          RECIPIENT_ADDR: ${{ secrets.RECIPIENT_ADDR }}
-          TWILIO_SID:     ${{ secrets.TWILIO_SID }}
-          TWILIO_AUTH:    ${{ secrets.TWILIO_AUTH }}
-          TWILIO_FROM:    ${{ secrets.TWILIO_FROM }}
-          TWILIO_TO:      ${{ secrets.TWILIO_TO }}
-          URL_TO_CHECK:   "https://example.com/status"
-          CSS_SELECTOR:   "b.blue-label.col-md-1.count.ng-binding"
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
           python3 check_script.py
