@@ -14,13 +14,11 @@ import os
 URL_TO_CHECK      = "https://www.dira.moch.gov.il/ProjectsList"
 CSS_SELECTOR      = "b.blue-label.col-md-1.count.ng-binding"
 
-CHECK_INTERVAL_SEC = 60 * 60   # check every 5 minutes
-
 # Email (SMTP)
 SMTP_SERVER    = "smtp.gmail.com"
 SMTP_PORT      = 587
 SMTP_USER      = "alonnergaon0@gmail.com"
-SMTP_PASS      = os.getenv("MY_SMTP_PASSWORD")
+SMTP_PASS      = os.getenv("SMTP_PASS")
 SENDER_ADDR    = "alonnergaon0@gmail.com"
 RECIPIENT_ADDR = "alonnergaon0@gmail.com"
 
@@ -143,10 +141,6 @@ def main_loop():
                 if alerted_once:
                     print("[INFO] Value ≤ 0 again. Resetting alert flag.")
                 alerted_once = False
-
-        # Wait before checking again
-        print(f"[INFO] Sleeping for {CHECK_INTERVAL_SEC} seconds…")
-        time.sleep(CHECK_INTERVAL_SEC)
 
 if __name__ == "__main__":
     main_loop()
