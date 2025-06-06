@@ -21,7 +21,6 @@ SMTP_USER      = "alonnergaon0@gmail.com"
 SMTP_PASS      = os.getenv("SMTP_PASS")
 SENDER_ADDR    = "alonnergaon0@gmail.com"
 RECIPIENT_ADDR = "alonnergaon0@gmail.com"
-print(SMTP_PASS)
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. SCRAPE + PARSE FUNCTION
 # ─────────────────────────────────────────────────────────────────────────────
