@@ -112,10 +112,30 @@ def main_loop():
         print(f"[INFO] Fetched value = {val}")
 
         # Check if value > 0
-        if val >= 0 and not alerted_once:
-            subject = f"🔔 Alert: value = {val} > 0"
-            body    = f"The element '{CSS_SELECTOR}' at {URL_TO_CHECK} is now {val}, which is > 0."
+        if val > 0 and not alerted_once:
+            # Suppose `val` holds the integer number of open raffles:
+            open_raffles = int(val)
 
+            # Craft a subject line:
+            subject = (
+                f"🏠 {open_raffles} New Apartment "
+                f"Raffle{'s' if open_raffles != 1 else ''} Open for Registration"
+            )
+
+            # Craft a plain-text email body:
+            body = f"""
+            Hello,
+
+            Good news! There {'are' if open_raffles != 1 else 'is'} currently {open_raffles} apartment raffle{'s' if open_raffles != 1 else ''} open for registration on the Ministry of Construction and Housing’s website.
+
+            🔗 View details and register here:
+            https://www.dira.moch.gov.il/ProjectsList
+
+            If you’re interested in applying, click the link above to see which projects have new slots available. These raffles are for eligible apartments, and spots fill up quickly, so act soon!
+
+            Best regards,
+            Your Automated Raffle Notifier
+            """
             # Send email
             email_sent = send_email_notification(
                 SMTP_SERVER,
