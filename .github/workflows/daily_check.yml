@@ -28,4 +28,4 @@ jobs:
         env:
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
-          python3 check_script.py
+          python3 /home/runner/work/Web-Scrapper/check_script.py
